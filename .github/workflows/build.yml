@@ -36,7 +36,7 @@ jobs:
       - name: Install git and gh
         run: pacman -Syu --noconfirm --needed git github-cli
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Build
         run: |
