@@ -1,0 +1,126 @@
+name: Build
+
+# Every push and pull request: lint and build in a clean Arch container.
+# Daily: move to Anthropic's newest version if there is one. Every run on main
+# publishes a release for a PKGBUILD version that has none yet.
+#
+# Releases hold only the source package (PKGBUILD and helper scripts).
+# The built package is never uploaded: it would redistribute Anthropic's app.
+# Users' makepkg downloads the app from Anthropic.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["**.md", "LICENSE", "systemd/**"]
+  pull_request:
+  schedule:
+    - cron: "23 7 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    permissions:
+      contents: write
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      UPDATE: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+      ON_MAIN: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
+    steps:
+      - name: Install git and gh
+        run: pacman -Syu --noconfirm --needed git github-cli
+
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          if [ "$UPDATE" = true ]; then ci/build.sh --update; else ci/build.sh; fi
+
+      - name: Read version
+        id: version
+        run: |
+          ver=$(sed -n 's/^pkgver=//p' PKGBUILD)
+          rel=$(sed -n 's/^pkgrel=//p' PKGBUILD)
+          echo "version=$ver" >> "$GITHUB_OUTPUT"
+          echo "tag=v$ver-$rel" >> "$GITHUB_OUTPUT"
+
+      - name: Commit version update
+        if: env.ON_MAIN == 'true' && env.UPDATE == 'true'
+        run: |
+          if git diff --quiet PKGBUILD; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update to Claude Desktop ${{ steps.version.outputs.version }}" PKGBUILD
+          git push
+
+      - name: Publish release
+        if: env.ON_MAIN == 'true'
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "$TAG is already released."
+            exit 0
+          fi
+          cat > notes.md <<EOF
+          Source package for Claude Desktop $VERSION on Arch Linux.
+
+          It contains only the PKGBUILD and this repo's helper scripts. When you
+          build it, makepkg downloads the app from Anthropic's apt repository and
+          checks it against the SHA256 pinned in the PKGBUILD. CI verified that
+          hash against Anthropic's signed repository index.
+
+          \`\`\`sh
+          curl -fLO https://github.com/$GH_REPO/releases/download/$TAG/claude-desktop.src.tar.gz
+          tar -xf claude-desktop.src.tar.gz
+          cd claude-desktop
+          makepkg -si
+          \`\`\`
+          EOF
+          gh release create "$TAG" dist/claude-desktop.src.tar.gz dist/SHA256SUMS \
+            --target "$(git rev-parse HEAD)" \
+            --title "Claude Desktop $VERSION ($TAG)" \
+            --notes-file notes.md
+
+      # A failed daily run needs a person: open an issue instead of releasing.
+      # Upstream packaging drift gets its own issue with the diff.
+      - name: Report failed update
+        if: failure() && env.UPDATE == 'true'
+        run: |
+          run_url="$GITHUB_SERVER_URL/$GH_REPO/actions/runs/$GITHUB_RUN_ID"
+          if [ -f build.log ] && grep -q 'upstream packaging changed' build.log; then
+            title="Upstream packaging changed in Claude Desktop $(sed -n 's/^pkgver=//p' PKGBUILD)"
+            {
+              echo "check-deb.sh found changes in the upstream .deb that need review before the next release."
+              echo
+              echo '```diff'
+              sed -n '/^--- reviewed/,/^check-deb.sh: upstream/p' build.log | head -c 60000
+              echo '```'
+              echo
+              echo "To review: run \`./update.sh && makepkg\` locally, adapt the PKGBUILD, then run \`./check-deb.sh --accept <deb>\` and push."
+              echo
+              echo "Run: $run_url"
+            } > issue.md
+          else
+            title="Daily update failed"
+            {
+              echo "The daily update failed outside the drift check. Likely causes: a signature,"
+              echo "expiry, or version check in update.sh, the smoke test (ci/smoke.sh), or CI itself."
+              echo
+              echo "Run: $run_url"
+            } > issue.md
+          fi
+          existing=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Failed again: $run_url"
+          else
+            gh issue create --title "$title" --body-file issue.md
+          fi

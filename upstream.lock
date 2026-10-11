@@ -1,0 +1,203 @@
+relation Depends: kde-cli-tools | kde-runtime | trash-cli | libglib2.0-bin | gvfs
+relation Depends: libatspi2.0-0
+relation Depends: libc6 (>= 2.34)
+relation Depends: libdrm2
+relation Depends: libgbm1
+relation Depends: libgtk-3-0
+relation Depends: libnotify4
+relation Depends: libnss3
+relation Depends: libpipewire-0.3-0
+relation Depends: libsecret-1-0
+relation Depends: libuuid1
+relation Depends: libxcb-dri3-0
+relation Depends: libxtst6
+relation Depends: xdg-desktop-portal
+relation Depends: xdg-desktop-portal-gtk | xdg-desktop-portal-gnome | xdg-desktop-portal-kde
+relation Depends: xdg-utils
+relation Recommends: bubblewrap
+relation Recommends: ca-certificates
+relation Recommends: gnome-keyring | plasma-workspace
+relation Recommends: libasound2t64 | libasound2 | pulseaudio
+relation Recommends: libayatana-appindicator3-1 | libappindicator3-1
+relation Recommends: ovmf
+relation Recommends: qemu-system-x86
+relation Recommends: socat
+relation Recommends: virtiofsd
+relation Suggests: gnome-keyring
+relation Suggests: lsb-release
+script postinst c162a6bca25eef918dfa85b032701f0ea1fca89562833ac696040461717d15c2
+script postrm 32bed0b3627f6512c722ae9efa0be28177b815b4abc4fb440d6987f895fbc73a
+library ld-linux-x86-64.so.2
+library libX11.so.6
+library libXcomposite.so.1
+library libXdamage.so.1
+library libXext.so.6
+library libXfixes.so.3
+library libXrandr.so.2
+library libasound.so.2
+library libatk-1.0.so.0
+library libatk-bridge-2.0.so.0
+library libatspi.so.0
+library libc.so.6
+library libcairo.so.2
+library libcap-ng.so.0
+library libcups.so.2
+library libdbus-1.so.3
+library libdl.so.2
+library libexpat.so.1
+library libgbm.so.1
+library libgcc_s.so.1
+library libgio-2.0.so.0
+library libglib-2.0.so.0
+library libgobject-2.0.so.0
+library libgtk-3.so.0
+library libm.so.6
+library libnspr4.so
+library libnss3.so
+library libnssutil3.so
+library libpango-1.0.so.0
+library libpipewire-0.3.so.0
+library libpthread.so.0
+library libseccomp.so.2
+library libsmime3.so
+library libstdc++.so.6
+library libudev.so.1
+library libutil.so.1
+library libxcb.so.1
+library libxkbcommon.so.0
+file -rw-r--r-- ./usr/lib/claude-desktop/LICENSES.chromium.html
+file -rw-r--r-- ./usr/lib/claude-desktop/chrome_100_percent.pak
+file -rw-r--r-- ./usr/lib/claude-desktop/chrome_200_percent.pak
+file -rw-r--r-- ./usr/lib/claude-desktop/icudtl.dat
+file -rw-r--r-- ./usr/lib/claude-desktop/resources.pak
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/Tray-Win32-Dark.ico
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/Tray-Win32.ico
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/TrayIconLinux-Dark.png
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/TrayIconLinux.png
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/TrayIconTemplate-Dark.png
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/TrayIconTemplate-Dark@2x.png
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/TrayIconTemplate-Dark@3x.png
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/TrayIconTemplate.png
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/TrayIconTemplate@2x.png
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/TrayIconTemplate@3x.png
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/app.asar
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/gnome-search-provider/com.anthropic.Claude.SearchProvider.service
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/gnome-search-provider/com.anthropic.Claude.search-provider.ini
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/gnome-search-provider/searchProvider.js
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/icon.png
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/linux-mime/com.anthropic.Claude.xml
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/smol-bin.x64.img
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/virtiofsd.LICENSE-APACHE
+file -rw-r--r-- ./usr/lib/claude-desktop/resources/virtiofsd.LICENSE-BSD-3-Clause
+file -rw-r--r-- ./usr/lib/claude-desktop/snapshot_blob.bin
+file -rw-r--r-- ./usr/lib/claude-desktop/v8_context_snapshot.bin
+file -rw-r--r-- ./usr/lib/claude-desktop/version
+file -rw-r--r-- ./usr/lib/claude-desktop/vk_swiftshader_icd.json
+file -rw-r--r-- ./usr/share/applications/com.anthropic.Claude.desktop
+file -rw-r--r-- ./usr/share/doc/claude-desktop/copyright
+file -rw-r--r-- ./usr/share/icons/hicolor/128x128/apps/claude-desktop.png
+file -rw-r--r-- ./usr/share/icons/hicolor/16x16/apps/claude-desktop.png
+file -rw-r--r-- ./usr/share/icons/hicolor/256x256/apps/claude-desktop.png
+file -rw-r--r-- ./usr/share/icons/hicolor/32x32/apps/claude-desktop.png
+file -rw-r--r-- ./usr/share/icons/hicolor/48x48/apps/claude-desktop.png
+file -rw-r--r-- ./usr/share/lintian/overrides/claude-desktop
+file -rwsr-xr-x ./usr/lib/claude-desktop/chrome-sandbox
+file -rwxr-xr-x ./usr/lib/claude-desktop/chrome_crashpad_handler
+file -rwxr-xr-x ./usr/lib/claude-desktop/claude-desktop
+file -rwxr-xr-x ./usr/lib/claude-desktop/libffmpeg.so
+file -rwxr-xr-x ./usr/lib/claude-desktop/libvk_swiftshader.so
+file -rwxr-xr-x ./usr/lib/claude-desktop/libvulkan.so.1
+file -rwxr-xr-x ./usr/lib/claude-desktop/resources/chrome-native-host
+file -rwxr-xr-x ./usr/lib/claude-desktop/resources/claude-browser-shim.js
+file -rwxr-xr-x ./usr/lib/claude-desktop/resources/cowork-linux-helper
+file -rwxr-xr-x ./usr/lib/claude-desktop/resources/disclaimer
+file -rwxr-xr-x ./usr/lib/claude-desktop/resources/virtiofsd
+file drwxr-xr-x ./
+file drwxr-xr-x ./usr/
+file drwxr-xr-x ./usr/bin/
+file drwxr-xr-x ./usr/lib/
+file drwxr-xr-x ./usr/lib/claude-desktop/resources/gnome-search-provider/
+file drwxr-xr-x ./usr/lib/claude-desktop/resources/linux-mime/
+file drwxr-xr-x ./usr/share/
+file drwxr-xr-x ./usr/share/applications/
+file drwxr-xr-x ./usr/share/doc/
+file drwxr-xr-x ./usr/share/doc/claude-desktop/
+file drwxr-xr-x ./usr/share/icons/
+file drwxr-xr-x ./usr/share/icons/hicolor/
+file drwxr-xr-x ./usr/share/icons/hicolor/128x128/
+file drwxr-xr-x ./usr/share/icons/hicolor/128x128/apps/
+file drwxr-xr-x ./usr/share/icons/hicolor/16x16/
+file drwxr-xr-x ./usr/share/icons/hicolor/16x16/apps/
+file drwxr-xr-x ./usr/share/icons/hicolor/256x256/
+file drwxr-xr-x ./usr/share/icons/hicolor/256x256/apps/
+file drwxr-xr-x ./usr/share/icons/hicolor/32x32/
+file drwxr-xr-x ./usr/share/icons/hicolor/32x32/apps/
+file drwxr-xr-x ./usr/share/icons/hicolor/48x48/
+file drwxr-xr-x ./usr/share/icons/hicolor/48x48/apps/
+file drwxr-xr-x ./usr/share/lintian/
+file drwxr-xr-x ./usr/share/lintian/overrides/
+file lrwxrwxrwx ./usr/bin/claude-desktop -> ../lib/claude-desktop/claude-desktop
+path /bin/bash
+path /bin/generate_temp_api_key.sh
+path /bin/ps
+path /bin/sh
+path /bin/zsh
+path /etc/auto_master
+path /etc/claude-code
+path /etc/claude-desktop
+path /etc/claude-desktop/managed-settings.json
+path /etc/claude/vertex-sa.json
+path /etc/machine-info
+path /etc/os-release
+path /etc/ssh/ssh_config
+path /etc/ssl/certs
+path /etc/wsl.conf
+path /etc/xdg
+path /lib/modules
+path /opt/android-studio
+path /opt/azcmagent/bin/himds
+path /opt/google/chrome/chrome
+path /opt/homebrew/bin
+path /opt/homebrew/bin/brew
+path /opt/local/bin
+path /opt/microsoft/msedge/msedge
+path /opt/openssh/bin/ssh
+path /sbin/ifconfig
+path /usr/bin
+path /usr/bin/app-sso
+path /usr/bin/busctl
+path /usr/bin/flatpak
+path /usr/bin/footprint
+path /usr/bin/kwallet-query
+path /usr/bin/log
+path /usr/bin/open
+path /usr/bin/pgrep
+path /usr/bin/plutil
+path /usr/bin/sandbox-exec
+path /usr/bin/secret-tool
+path /usr/bin/ssh
+path /usr/bin/sw_vers
+path /usr/bin/update-desktop-database
+path /usr/bin/virtiofsd
+path /usr/bin/vm_stat
+path /usr/bin/xattr
+path /usr/lib/os-release
+path /usr/libexec/virtiofsd
+path /usr/local/android-studio
+path /usr/local/bin
+path /usr/local/bin/aws
+path /usr/local/bin/bootstrap-headers-helper
+path /usr/local/bin/brew
+path /usr/local/bin/ccd
+path /usr/local/bin/claude
+path /usr/local/bin/corp-cred-helper
+path /usr/local/bin/otel-headers-helper
+path /usr/local/bin/uvx
+path /usr/local/go/bin
+path /usr/sbin/kextstat
+path /usr/sbin/scutil
+path /usr/sbin/sysctl
+path /usr/share/AAVMF/AAVMF_CODE.fd
+path /usr/share/OVMF/OVMF_CODE.fd
+path /usr/share/OVMF/OVMF_CODE_4M.fd
+path /usr/share/icons/hicolor

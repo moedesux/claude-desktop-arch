@@ -1,0 +1,6 @@
+[Unit]
+Description=Check Anthropic's apt repo for a newer Claude Desktop
+
+[Service]
+Type=oneshot
+ExecStart=@REPO@/update.sh --check
