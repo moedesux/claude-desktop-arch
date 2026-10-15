@@ -19,6 +19,7 @@ relation Recommends: ca-certificates
 relation Recommends: gnome-keyring | plasma-workspace
 relation Recommends: libasound2t64 | libasound2 | pulseaudio
 relation Recommends: libayatana-appindicator3-1 | libappindicator3-1
+relation Recommends: openssh-client
 relation Recommends: ovmf
 relation Recommends: qemu-system-x86
 relation Recommends: socat
@@ -109,6 +110,7 @@ file -rwxr-xr-x ./usr/lib/claude-desktop/libvk_swiftshader.so
 file -rwxr-xr-x ./usr/lib/claude-desktop/libvulkan.so.1
 file -rwxr-xr-x ./usr/lib/claude-desktop/resources/chrome-native-host
 file -rwxr-xr-x ./usr/lib/claude-desktop/resources/claude-browser-shim.js
+file -rwxr-xr-x ./usr/lib/claude-desktop/resources/claude-ssh-askpass
 file -rwxr-xr-x ./usr/lib/claude-desktop/resources/cowork-linux-helper
 file -rwxr-xr-x ./usr/lib/claude-desktop/resources/disclaimer
 file -rwxr-xr-x ./usr/lib/claude-desktop/resources/virtiofsd

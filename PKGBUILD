@@ -5,7 +5,7 @@
 # Bump the version with ./update.sh, which checks Anthropic's apt signature.
 
 pkgname=claude-desktop
-pkgver=2.31226.1
+pkgver=2.42304.0
 pkgrel=1
 pkgdesc="Claude desktop app (official Anthropic Linux build)"
 arch=('x86_64')
@@ -25,6 +25,7 @@ optdepends=('gnome-keyring: store sign-in (or kwallet on KDE, or another Secret 
             'libayatana-appindicator: tray icon'
             'bubblewrap: Claude Code shell sandbox'
             'socat: Claude Code shell sandbox'
+            'openssh: SSH connections'
             'qemu-system-x86: Cowork VM (also needs KVM and the kvm group)'
             'edk2-ovmf: Cowork VM firmware'
             'gjs: GNOME Shell search provider')
@@ -36,7 +37,7 @@ source=("https://downloads.claude.ai/claude-desktop/apt/stable/pool/main/c/$pkgn
         'upstream.lock'
         'claude-desktop.sh')
 # The local files are tracked in git next to this PKGBUILD.
-sha256sums=('5a9bebdfcb1df6ce38767b373f3a7fabf77156a2ddd8a3f5d04961da5bde305e'
+sha256sums=('74cd2ccc29d24165144e455cbc872c6cc2a24a263b83e73420e95f89166d4aa4'
             'SKIP'
             'SKIP'
             'SKIP')
